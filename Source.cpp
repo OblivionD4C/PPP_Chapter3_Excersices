@@ -12,54 +12,70 @@ using namespace std;
 int main()
 {
 	//9 + 10 chess reward, how many squares requierd for... 1000 , 1000000,1000000000
-	constexpr int totalsquares = 64;
+	constexpr int totalsquares = 64;//1025 for double
 
-	double totalRice{ 1 };
-	double currentAmount{1};
-	/*int totalRice{ 1 };
-	int currentAmount{1};*/
-
+	/*double totalRice{ 1 };
+	double currentAmount{1};*/
+	int totalRice{ 1 };
+	int currentAmount{1};
+	constexpr int max = numeric_limits<int>::max();
 
 	bool reached1000 = false;
 	bool reached1000000 = false;
 	bool reached1000000000 = false;
-	cout << "square" << '\t' << "grains" << '\n';
+	cout << "square" << '\t' << "grains" <<  '\n';
 
 	for (int i = 1; i <= totalsquares; i++)
 	{
-		if (totalRice <= 0) // check if INT is maxed , not relevent for double
+		//currentAmount = totalRice;
+		if (totalRice > (max / 2)) // check if doubling will overflow (for int or unsigned int) 
+			//“What’s the biggest number I can double without going over max?” , max / 2
 		{
-			cout << i << " squares is too much! " << "empire has no more grains!!!!" << '\n' << " we only have:" << totalRice;
+			cout << i /* square number */ << '\t' << totalRice << "   loop number:" << i << '\n';
+			cout << "this is the last square before int is not viable anymore" << '\n';
+			cout << "in total we have:" << max <<'\n';
+
 			break;
 		}
-		cout << i << '\t' << currentAmount << '\n';
-
 		
 
-		//doubling happens after printing grains for square i, so totalRice corresponds to square i+1 at the moment you check.//pls remmber this
-		if (totalRice >= 1000 && reached1000 == false)
+		
+		if (std::isinf(totalRice)) // for double type overflow
 		{
-			cout << "you have reached 1000 grains." << "on square number:" << i  << '\n';
+			cout << i << " squares is too much! " << "empire has no more grains!!!!" << '\n'
+				<< " we only have:" << totalRice << '\n';
+			break;
+		}
+
+		cout << i /* square number */ << '\t' << totalRice << "   loop number:" << i << '\n';
+
+		// Your grain milestones
+		if (totalRice >= 1000 && !reached1000)
+		{
+			cout << "you have reached 1000 grains." << " on square number:" << i << '\n';
 			reached1000 = true;
 		}
-		else if(totalRice >= 1000000 && reached1000000 == false)
+		else if (totalRice >= 1000000 && !reached1000000)
 		{
-			cout << "you have reached 1000000 grains." << "on square number:" << i << '\n';
+			cout << "you have reached 1000000 grains." << " on square number:" << i << '\n';
 			reached1000000 = true;
 		}
-		else if (totalRice >= 1000000000 && reached1000000000 == false)
+		else if (totalRice >= 1000000000 && !reached1000000000)
 		{
-			cout << "you have reached 1000000000 grains." << "on square number:" << i << '\n';
+			cout << "you have reached 1000000000 grains." << " on square number:" << i << '\n';
 			reached1000000000 = true;
 		}
-	
+
+		// Optional: show total grains for next square (debug info)
+		cout << '\t' << "Total grains for next square (square " << i + 1 << "): " << totalRice << '\n';
+
+		
+		
 
 		totalRice *= 2;
-	 currentAmount = totalRice;
+		//cout << '\t' << "totalgrains value for square: " << i + 1 << "  are:" << '\t' << totalRice << "      loop number:" << i << '\n';
 
 	}//loop end
-
-
 
 }//main end
 
