@@ -36,7 +36,7 @@ int main()
 
 		
 
-		//doubling happens after printing grains for square i, so totalRice corresponds to square i+1 at the moment you check.
+		//doubling happens after printing grains for square i, so totalRice corresponds to square i+1 at the moment you check.//pls remmber this
 		if (totalRice >= 1000 && reached1000 == false)
 		{
 			cout << "you have reached 1000 grains." << "on square number:" << i  << '\n';
