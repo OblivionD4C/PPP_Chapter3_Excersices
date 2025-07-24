@@ -72,7 +72,7 @@ int main()
 		
 
 		totalRice *= 2;
-		// Optional: show total grains for next square (debug info)
+		// Optional: show total grains for next square 
 		cout << '\t' << "Total grains for next square (square " << i + 1 << "): " << totalRice << '\n';
 		//cout << '\t' << "totalgrains value for square: " << i + 1 << "  are:" << '\t' << totalRice << "      loop number:" << i << '\n';
 
