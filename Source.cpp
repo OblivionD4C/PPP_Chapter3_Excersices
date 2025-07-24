@@ -28,7 +28,7 @@ int main()
 	for (int i = 1; i <= totalsquares; i++)
 	{
 		//currentAmount = totalRice;
-		if (totalRice > (max / 2)) // check if doubling will overflow (for int or unsigned int) 
+		if (totalRice > (max / 2)) // check if doubling will overflow 
 			//“What’s the biggest number I can double without going over max?” , max / 2
 		{
 			cout << i /* square number */ << '\t' << totalRice << "   loop number:" << i << '\n';
