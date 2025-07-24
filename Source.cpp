@@ -7,137 +7,61 @@
 //#include "PPP.h"
 using namespace std;
 
-vector<string> wordNums{ "zero","one","two","three","four","five","six","seven","eight","nine" };
-bool isAWord = false;
 
-int get_number_from_User() // uses cin ( input directly from user in the function ) . used for 7
-{
-	int val{};
-	string Str;
-	if (cin >> val)
-	{
-		if (val >= 0 && val < wordNums.size())
-		{
-			return val;
 
-		}
-		else 
-		{
-			cout << "number is not in range of 0-9" << '\n';
-		}
-	}
-	else
-	{
-		cin.clear();// input failed (e.g., user typed letters instead of a number);
-		              //this resets cin so we can continue reading input
-		cin >> Str;
-		for (int i = 0; i < wordNums.size();i++)
-		{
-			if (wordNums[i] == Str)
-			{
-				val = i;
-				isAWord = true;
-				return val;
-			}
-			
-		}
-		std::cerr << "Invalid input: " << Str << '\n';
-	}
-	
-	// fallback return if everything fails , basically if input is invalid
-	return -1;
-	
-}
-
-int get_number_from_string(string Str1) // uses istringstream to break down a given string into a stream and from there figure out if its int or string like in get_number_from_User() ,
-{
-	int val{};
-
-	istringstream x(Str1);
-
-	if (x >> val)
-	{
-		if (val >= 0 && val < wordNums.size()) // range check with vector
-		{
-			return val;
-
-		}
-		else
-		{
-			cout << "number is not in range of 0-9" << '\n';
-		}
-	}
-	else
-	{
-		for (int i = 0; i < wordNums.size();i++)
-		{
-			if (wordNums[i] == Str1)
-			{
-				val = i; // return index of matching word position , print it out with vector[val]
-				isAWord = true;
-				return val;
-			}
-
-		}
-		std::cerr << "Invalid input: " << Str1 << '\n';
-	}
-
-	// fallback return if everything fails , basically if input is invalid
-	return -1;
-
-}
 int main()
 {
-	//8
-	string input{};
-	int num{};
-	constexpr char div = '/';
-	constexpr char add = '+';
-	constexpr char sub = '-';
-	constexpr char mult = '*';
-	string line{};
-	string number1{};
-	string number2{};
-	int a{};
-	int b{};
-	char opreator{};
+	//9 + 10 chess reward, how many squares requierd for... 1000 , 1000000,1000000000
+	constexpr int totalsquares = 64;
 
-	while (true)
+	double totalRice{ 1 };
+	double currentAmount{1};
+	/*int totalRice{ 1 };
+	int currentAmount{1};*/
+
+
+	bool reached1000 = false;
+	bool reached1000000 = false;
+	bool reached1000000000 = false;
+	cout << "square" << '\t' << "grains" << '\n';
+
+	for (int i = 1; i <= totalsquares; i++)
 	{
-		cout << "enter a number ( 0 - 9 ) followed by an opreator and another number:" << '\n';
-		getline(cin, line);
-		istringstream expr(line);
-		expr >> number1 >> opreator >> number2;
-		a = get_number_from_string(number1);
-	 b = get_number_from_string(number2);
-		if (a == -1 || b == -1)
+		if (totalRice <= 0) // check if INT is maxed , not relevent for double
 		{
-			cout << "one of the inputs is invalid" << "\n";
-		}
-
-		cout << " result:" << '\t';
-		switch (opreator)
-		{
-		case div:
-			if (b == 0) {
-				cout << "Cannot divide by zero.\n";
-				break;
-			}
-			cout << a / b << "\n";
-			break;
-		case add:
-			cout << a + b << "\n";
-			break;
-		case sub:
-			cout << a - b << "\n";
-			break;
-		case mult:
-			cout << a * b << "\n";
+			cout << i << " squares is too much! " << "empire has no more grains!!!!" << '\n' << " we only have:" << totalRice;
 			break;
 		}
-	}
+		cout << i << '\t' << currentAmount << '\n';
 
-}
+		
+
+		//doubling happens after printing grains for square i, so totalRice corresponds to square i+1 at the moment you check.
+		if (totalRice >= 1000 && reached1000 == false)
+		{
+			cout << "you have reached 1000 grains." << "on square number:" << i  << '\n';
+			reached1000 = true;
+		}
+		else if(totalRice >= 1000000 && reached1000000 == false)
+		{
+			cout << "you have reached 1000000 grains." << "on square number:" << i << '\n';
+			reached1000000 = true;
+		}
+		else if (totalRice >= 1000000000 && reached1000000000 == false)
+		{
+			cout << "you have reached 1000000000 grains." << "on square number:" << i << '\n';
+			reached1000000000 = true;
+		}
+	
+
+		totalRice *= 2;
+	 currentAmount = totalRice;
+
+	}//loop end
+
+
+
+}//main end
 
 
 
@@ -254,8 +178,7 @@ int main()
 	//constexpr char add = '+';
 	//constexpr char sub = '-';
 	//constexpr char mult = '*';
-
-	//double number1{ 0 };
+//double number1{ 0 };
 	//double number2{0 };
 	//char opreator;
 
@@ -367,4 +290,198 @@ int main()
 //		}
 //	}
 //
+//}
+
+
+//8 istringstream versio
+// vector<string> wordNums{ "zero","one","two","three","four","five","six","seven","eight","nine" };
+//bool isAWord = false;
+
+//int get_number_from_string(string Str1) // uses istringstream to break down a given string into a stream and from there figure out if its int or string like in get_number_from_User() ,
+//{
+//	int val{};
+//
+//	istringstream x(Str1);
+//
+//	if (x >> val)
+//	{
+//		if (val >= 0 && val < wordNums.size()) // range check with vector
+//		{
+//			return val;
+//
+//		}
+//		else
+//		{
+//			cout << "number is not in range of 0-9" << '\n';
+//		}
+//	}
+//	else
+//	{
+//		for (int i = 0; i < wordNums.size();i++)
+//		{
+//			if (wordNums[i] == Str1)
+//			{
+//				val = i; // return index of matching word position , print it out with vector[val]
+//				isAWord = true;
+//				return val;
+//			}
+//
+//		}
+//		std::cerr << "Invalid input: " << Str1 << '\n';
+//	}
+//
+//	// fallback return if everything fails , basically if input is invalid
+//	return -1;
+//
+//}
+//int main()
+//{
+//	//8 utilizing istrinstrem
+//	string input{};
+//	int num{};
+//	constexpr char div = '/';
+//	constexpr char add = '+';
+//	constexpr char sub = '-';
+//	constexpr char mult = '*';
+//	string line{};
+//	string number1{};
+//	string number2{};
+//	int a{};
+//	int b{};
+//	char opreator{};
+//
+//	while (true)
+//	{
+//		cout << "enter a number ( 0 - 9 ) followed by an opreator and another number:" << '\n';
+//		getline(cin, line);
+//		istringstream expr(line);
+//		expr >> number1 >> opreator >> number2;
+//		a = get_number_from_string(number1);
+//		b = get_number_from_string(number2);
+//		if (a == -1 || b == -1)
+//		{
+//			cout << "one of the inputs is invalid" << "\n";
+//		}
+//
+//		cout << " result:" << '\t';
+//		switch (opreator)
+//		{
+//		case div:
+//			if (b == 0) {
+//				cout << "Cannot divide by zero.\n";
+//				break;
+//			}
+//			cout << a / b << "\n";
+//			break;
+//		case add:
+//			cout << a + b << "\n";
+//			break;
+//		case sub:
+//			cout << a - b << "\n";
+//			break;
+//		case mult:
+//			cout << a * b << "\n";
+//			break;
+//		}
+//	}
+//
+//}
+
+
+//8 not utilizing istrinstrem
+// // vector<string> wordNums{ "zero","one","two","three","four","five","six","seven","eight","nine" };
+//bool isAWord = false;
+// 
+// the two variables above are global.
+//int get_number_from_User() // uses cin ( input directly from user in the function ) . used for 7 and 8(without istringstream ver)
+//{
+//	int val{};
+//	string Str;
+//	if (cin >> val)
+//	{
+//		if (val >= 0 && val < wordNums.size())
+//		{
+//			return val;
+//
+//		}
+//		else
+//		{
+//			cout << "number is not in range of 0-9" << '\n';
+//		}
+//	}
+//	else
+//	{
+//		cin.clear();// input failed (e.g., user typed letters instead of a number);
+//		//this resets cin so we can continue reading input
+//		cin >> Str;
+//		for (int i = 0; i < wordNums.size();i++)
+//		{
+//			if (wordNums[i] == Str)
+//			{
+//				val = i;
+//				isAWord = true;
+//				return val;
+//			}
+//
+//		}
+//		std::cerr << "Invalid input: " << Str << '\n';
+//	}
+//
+//	// fallback return if everything fails , basically if input is invalid
+//	return -1;
+//
+//}
+// 
+// //main below
+//string input{};
+//int num{};
+//constexpr char div = '/';
+//constexpr char add = '+';
+//constexpr char sub = '-';
+//constexpr char mult = '*';
+//string line{};
+//string number1{};
+//string number2{};
+//int a{};
+//int b{};
+//char opreator{};
+//
+//while (true)
+//{
+//	cout << "enter a number ( 0 - 9 ) followed by an opreator and another number:" << '\n';
+//	cout << "first number:" << '\t' << '\n';
+//	a = get_number_from_User();
+//	cout << "opreator:" << '\t' << '\n';
+//	cin >> opreator;
+//	cout << "second number:" << '\t' << '\n';
+//	b = get_number_from_User();
+//
+//	if (a == -1 || b == -1)
+//	{
+//		cout << " you enterd invalid input";
+//		break;
+//	}
+//
+//
+//
+//	cout << " result:" << '\t';
+//	switch (opreator)
+//	{
+//	case div:
+//		if (b == 0) {
+//			cout << "Cannot divide by zero.\n";
+//			break;
+//		}
+//		cout << a / b << "\n";
+//		break;
+//	case add:
+//		cout << a + b << "\n";
+//		break;
+//	case sub:
+//		cout << a - b << "\n";
+//		break;
+//	case mult:
+//		cout << a * b << "\n";
+//		break;
+//	}
 //}
